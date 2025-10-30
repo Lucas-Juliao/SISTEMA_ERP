@@ -1,9 +1,20 @@
+/* Paleta de Cores Profissional */
+:root {
+    --primary-bg: #ffffff;
+    --secondary-bg: #f8f9fa;
+    --sidebar-bg: #343a40; /* Cinza escuro */
+    --sidebar-text: #f8f9fa; /* Branco acinzentado */
+    --sidebar-hover: #495057; /* Cinza um pouco mais claro */
+    --text-color: #212529; /* Preto suave */
+    --border-color: #dee2e6; /* Cinza claro para bordas */
+}
+
 /* Estilos Gerais */
 body {
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
-    display: flex;
-    transition: margin-left .5s; /* Adiciona animação ao conteúdo */
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
 }
 
 /* --- Estilos do Menu Lateral (Sidebar) --- */
@@ -11,18 +22,23 @@ body {
     height: 100vh;
     width: 250px;
     position: fixed;
-    z-index: 1;
+    z-index: 2; /* Acima do overlay */
     top: 0;
-    left: 0;
-    background-color: #f0f0f0;
+    left: -250px; /* Escondido por padrão */
+    background-color: var(--sidebar-bg);
     overflow-x: hidden;
     padding-top: 20px;
-    transition: 0.5s; /* Animação de transição */
+    transition: left 0.3s ease-in-out;
+}
+
+.sidebar.open {
+    left: 0;
 }
 
 .sidebar h2 {
     text-align: center;
     margin-top: 0;
+    color: var(--sidebar-text);
 }
 
 .sidebar ul {
@@ -31,55 +47,33 @@ body {
 }
 
 .sidebar ul li a {
-    padding: 10px 15px;
+    padding: 12px 20px;
     text-decoration: none;
-    font-size: 18px;
-    color: #333;
+    font-size: 1rem;
+    color: var(--sidebar-text);
     display: block;
-    transition: 0.3s;
+    transition: background-color 0.2s;
 }
 
 .sidebar ul li a:hover {
-    background-color: #ddd;
+    background-color: var(--sidebar-hover);
 }
 
 /* --- Estilos do Conteúdo Principal --- */
 .content {
     padding: 20px;
-    flex-grow: 1;
-    transition: margin-left .5s;
-    margin-left: 250px; /* Mesmo valor da largura do sidebar */
+    width: 100%;
+    transition: margin-left 0.3s ease-in-out;
 }
 
 /* --- Botão Hamburger --- */
 .open-btn {
-    font-size: 30px;
+    font-size: 24px;
     cursor: pointer;
-    background-color: #f0f0f0;
+    background: none;
     border: none;
     padding: 10px 15px;
-    display: none; /* Escondido por padrão em telas grandes */
-}
-
-/* --- Estilos Responsivos --- */
-@media screen and (max-width: 768px) {
-    .sidebar {
-        width: 0; /* Menu escondido por padrão */
-        left: -50px; /* Garante que o conteúdo não sobreponha */
-    }
-
-    .sidebar.open {
-        width: 250px; /* Mostra o menu */
-        left: 0;
-    }
-
-    .content {
-        margin-left: 0; /* Conteúdo ocupa a tela toda */
-    }
-
-    .open-btn {
-        display: block; /* Mostra o botão em telas pequenas */
-    }
+    color: var(--text-color);
 }
 
 /* --- Estilos para Mensagens Flash --- */
@@ -106,4 +100,17 @@ body {
     color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
+}
+
+/* Não é mais necessário, o menu agora sobrepõe */
+@media screen and (min-width: 769px) {
+    .sidebar {
+        left: 0;
+    }
+    .content {
+        margin-left: 250px;
+    }
+    .open-btn {
+        display: none;
+    }
 }
