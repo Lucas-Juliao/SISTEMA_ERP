@@ -2,11 +2,9 @@
 :root {
     --primary-bg: #ffffff;
     --secondary-bg: #f8f9fa;
-    --sidebar-bg: #343a40; /* Cinza escuro */
-    --sidebar-text: #f8f9fa; /* Branco acinzentado */
-    --sidebar-hover: #495057; /* Cinza um pouco mais claro */
+    --overlay-bg: rgba(33, 37, 41, 0.95); /* Cinza escuro quase opaco */
+    --overlay-text: #f8f9fa; /* Branco acinzentado */
     --text-color: #212529; /* Preto suave */
-    --border-color: #dee2e6; /* Cinza claro para bordas */
 }
 
 /* Estilos Gerais */
@@ -17,56 +15,56 @@ body {
     color: var(--text-color);
 }
 
-/* --- Estilos do Menu Lateral (Sidebar) --- */
-.sidebar {
-    height: 100vh;
-    width: 250px;
-    position: fixed;
-    z-index: 2; /* Acima do overlay */
-    top: 0;
-    left: -250px; /* Escondido por padrão */
-    background-color: var(--sidebar-bg);
-    overflow-x: hidden;
-    padding-top: 20px;
-    transition: left 0.3s ease-in-out;
-}
-
-.sidebar.open {
-    left: 0;
-}
-
-.sidebar h2 {
-    text-align: center;
-    margin-top: 0;
-    color: var(--sidebar-text);
-}
-
-.sidebar ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar ul li a {
-    padding: 12px 20px;
-    text-decoration: none;
-    font-size: 1rem;
-    color: var(--sidebar-text);
-    display: block;
-    transition: background-color 0.2s;
-}
-
-.sidebar ul li a:hover {
-    background-color: var(--sidebar-hover);
-}
-
-/* --- Estilos do Conteúdo Principal --- */
-.content {
-    padding: 20px;
+/* --- Estilos do Menu Overlay --- */
+.overlay {
+    height: 100%;
     width: 100%;
-    transition: margin-left 0.3s ease-in-out;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background-color: var(--overlay-bg);
+    overflow: hidden;
+    /* Começa invisível e se torna visível com a classe .open */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s, visibility 0.5s;
 }
 
-/* --- Botão Hamburger --- */
+.overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+}
+
+.overlay a {
+    padding: 15px;
+    text-decoration: none;
+    font-size: 2rem; /* Tamanho maior para tela cheia */
+    color: var(--overlay-text);
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #ccc;
+}
+
+.overlay .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 3rem;
+}
+
+/* --- Botão Hamburger (Open Button) --- */
 .open-btn {
     font-size: 24px;
     cursor: pointer;
@@ -74,6 +72,16 @@ body {
     border: none;
     padding: 10px 15px;
     color: var(--text-color);
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 5;
+}
+
+/* --- Conteúdo Principal --- */
+.content {
+    padding: 20px;
+    padding-top: 60px; /* Espaço para o botão hamburger */
 }
 
 /* --- Estilos para Mensagens Flash --- */
@@ -100,17 +108,4 @@ body {
     color: #0c5460;
     background-color: #d1ecf1;
     border-color: #bee5eb;
-}
-
-/* Não é mais necessário, o menu agora sobrepõe */
-@media screen and (min-width: 769px) {
-    .sidebar {
-        left: 0;
-    }
-    .content {
-        margin-left: 250px;
-    }
-    .open-btn {
-        display: none;
-    }
 }

@@ -1,20 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
     const openBtn = document.getElementById('open-btn');
-    const sidebar = document.getElementById('sidebar');
+    const closeBtn = document.getElementById('close-btn');
+    const overlayMenu = document.getElementById('overlay-menu');
+    const overlayContent = document.querySelector('.overlay-content');
 
-    // Abre/fecha o menu ao clicar no botão
-    openBtn.addEventListener('click', function(event) {
-        event.stopPropagation(); // Impede que o clique se propague para o document
-        sidebar.classList.toggle('open');
+    // Abre o menu overlay
+    openBtn.addEventListener('click', function() {
+        overlayMenu.classList.add('open');
     });
 
-    // Fecha o menu se clicar fora dele
-    document.addEventListener('click', function(event) {
-        const isClickInsideSidebar = sidebar.contains(event.target);
-        const isClickOnOpenBtn = openBtn.contains(event.target);
+    // Função para fechar o menu
+    function closeMenu() {
+        overlayMenu.classList.remove('open');
+    }
 
-        if (sidebar.classList.contains('open') && !isClickInsideSidebar && !isClickOnOpenBtn) {
-            sidebar.classList.remove('open');
+    // Fecha o menu ao clicar no botão de fechar
+    closeBtn.addEventListener('click', closeMenu);
+
+    // Fecha o menu se clicar no "fundo" do overlay (fora do conteúdo do menu)
+    overlayMenu.addEventListener('click', function(event) {
+        // Se o clique foi no próprio overlay e não nos seus filhos (o conteúdo)
+        if (event.target === overlayMenu) {
+            closeMenu();
         }
     });
 });
