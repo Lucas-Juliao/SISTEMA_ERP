@@ -4,16 +4,16 @@ app = Flask(__name__)
 app.secret_key = 'uma_chave_secreta_muito_segura' # Troque por uma chave segura em produção
 
 @app.route('/')
-def dashboard():
-    return render_template('dashboard.html')
+def index():
+    return redirect(url_for('clientes'))
 
-@app.route('/pedidos')
-def pedidos():
-    return render_template('pedidos.html')
+@app.route('/clientes')
+def clientes():
+    return render_template('clientes.html')
 
-@app.route('/produtos')
-def produtos():
-    return render_template('produtos.html')
+@app.route('/oportunidades')
+def oportunidades():
+    return render_template('oportunidades.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
