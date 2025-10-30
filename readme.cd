@@ -1,0 +1,3 @@
+- Framework: Flask
+
+Crie a base para um sistema ERP. OBS.: quero que use um menu interativo lateral, pois o sistema terá várias rotas, a principio, sem vinculo com banco de dados.
